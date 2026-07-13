@@ -1,4 +1,3 @@
-/// Spring indicator package
-library;
+library spring_indicator;
 
-export 'src/spring_indicator.dart';
+export 'src/widgets/spring_indicator.dart';
