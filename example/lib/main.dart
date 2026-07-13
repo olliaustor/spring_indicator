@@ -78,10 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             child: SpringIndicator(
               controller: _controller,
-              count: pages.length,
-              size: 14,
-              spacing: 18,
-              activeColor: Colors.deepPurple,
+              itemCount: pages.length,
+              color: Colors.deepPurple,
               inactiveColor: Colors.black26,
             ),
           ),
