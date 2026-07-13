@@ -75,8 +75,6 @@ class SpringPainter extends CustomPainter {
     final head = _buildHead(current, offset);
     final foot = _buildFoot(current, offset);
 
-    debugPrint(page.toString());
-
     final activePaint = Paint()
       ..isAntiAlias = true
       ..style = PaintingStyle.fill
@@ -90,19 +88,18 @@ class SpringPainter extends CustomPainter {
 
     final path = _makePath(head, foot);
 
-    canvas.drawPath(path, activePaint);
-
-    canvas.drawCircle(
-      head.center,
-      head.radius,
-      activePaint,
-    );
-
-    canvas.drawCircle(
-      foot.center,
-      foot.radius,
-      activePaint,
-    );
+    canvas
+      ..drawPath(path, activePaint)
+      ..drawCircle(
+        head.center,
+        head.radius,
+        activePaint,
+      )
+      ..drawCircle(
+        foot.center,
+        foot.radius,
+        activePaint,
+      );
   }
 
   SpringPoint _buildHead(
