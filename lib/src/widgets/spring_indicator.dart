@@ -12,6 +12,7 @@ class SpringIndicator extends StatefulWidget {
     this.spacing = 24,
 
     this.color = Colors.blue,
+    this.colors,
     this.inactiveColor = const Color(0x33000000),
 
     this.acceleration = .5,
@@ -30,6 +31,8 @@ class SpringIndicator extends StatefulWidget {
   final double spacing;
 
   final Color color;
+
+  final List<Color>? colors;
   final Color inactiveColor;
 
   final double acceleration;
@@ -120,6 +123,7 @@ class _SpringIndicatorState extends State<SpringIndicator> {
           headMoveOffset: widget.headMoveOffset,
 
           activeColor: widget.color,
+          activeColors: widget.colors,
           inactiveColor: widget.inactiveColor,
 
           axis: widget.axis,

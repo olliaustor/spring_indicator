@@ -80,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: _controller,
               itemCount: pages.length,
               color: Colors.deepPurple,
+              colors: [Colors.red, Colors.green, Colors.blue],
               inactiveColor: Colors.black26,
             ),
           ),

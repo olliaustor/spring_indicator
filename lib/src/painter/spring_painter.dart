@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:spring_indicator/src/models/spring_point.dart';
 
 class SpringPainter extends CustomPainter {
   SpringPainter({
@@ -12,6 +13,7 @@ class SpringPainter extends CustomPainter {
     required this.acceleration,
     required this.headMoveOffset,
     required this.activeColor,
+    required this.activeColors,
     required this.inactiveColor,
     required this.axis,
   });
@@ -32,6 +34,7 @@ class SpringPainter extends CustomPainter {
   final double headMoveOffset;
 
   final Color activeColor;
+  final List<Color>? activeColors;
   final Color inactiveColor;
 
   final Axis axis;
@@ -47,11 +50,6 @@ class SpringPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..color = inactiveColor;
 
-    final activePaint = Paint()
-      ..isAntiAlias = true
-      ..style = PaintingStyle.fill
-      ..color = activeColor;
-
     // Draw inactive indicators.
     for (var i = 0; i < itemCount; i++) {
       canvas.drawCircle(_position(i), radiusMin, inactivePaint);
@@ -60,6 +58,10 @@ class SpringPainter extends CustomPainter {
     final current = page.floor().clamp(0, itemCount - 1);
 
     if (current == itemCount - 1) {
+      final activePaint = Paint()
+        ..isAntiAlias = true
+        ..style = PaintingStyle.fill
+        ..color = activeColors == null ? activeColor : activeColors!.last;
       canvas.drawCircle(
         _position(current),
         radiusMax,
@@ -72,6 +74,19 @@ class SpringPainter extends CustomPainter {
 
     final head = _buildHead(current, offset);
     final foot = _buildFoot(current, offset);
+
+    debugPrint(page.toString());
+
+    final activePaint = Paint()
+      ..isAntiAlias = true
+      ..style = PaintingStyle.fill
+      ..color = activeColors == null
+          ? activeColor
+          : Color.lerp(
+              activeColors == null ? activeColor : activeColors![current],
+              activeColors == null ? activeColor : activeColors![current + 1],
+              offset,
+            )!;
 
     final path = _makePath(head, foot);
 
@@ -237,19 +252,10 @@ class SpringPainter extends CustomPainter {
         oldDelegate.radiusMin != radiusMin ||
         oldDelegate.spacing != spacing ||
         oldDelegate.activeColor != activeColor ||
+        oldDelegate.activeColors != activeColors ||
         oldDelegate.inactiveColor != inactiveColor ||
         oldDelegate.acceleration != acceleration ||
         oldDelegate.headMoveOffset != headMoveOffset ||
         oldDelegate.axis != axis;
   }
-}
-
-class SpringPoint {
-  const SpringPoint({
-    required this.center,
-    required this.radius,
-  });
-
-  final Offset center;
-  final double radius;
 }
