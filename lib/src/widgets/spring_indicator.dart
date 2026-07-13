@@ -19,7 +19,12 @@ class SpringIndicator extends StatefulWidget {
     this.headMoveOffset = .6,
 
     this.axis = Axis.horizontal,
-  });
+  }) : assert(itemCount > 0),
+       assert(radiusMax > radiusMin),
+       assert(spacing >= 0),
+       assert(acceleration >= 0 && acceleration <= 1),
+       assert(headMoveOffset >= 0 && headMoveOffset <= 1),
+       assert(colors != null && colors.length == itemCount || colors == null);
 
   final PageController controller;
 
