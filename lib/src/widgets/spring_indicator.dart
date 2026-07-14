@@ -205,11 +205,11 @@ class _SpringIndicatorState extends State<SpringIndicator> {
 
     return SizedBox(
       width: widget.axis == Axis.horizontal
-          ? step * widget.itemCount
+          ? step * (widget.itemCount - 1) + diameter
           : diameter,
       height: widget.axis == Axis.horizontal
           ? diameter
-          : step * widget.itemCount,
+          : step * (widget.itemCount - 1) + diameter,
 
       child: CustomPaint(
         painter: SpringPainter(

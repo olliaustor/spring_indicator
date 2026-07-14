@@ -33,9 +33,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _controller = PageController();
 
-  double _radiusMax = 8;
+  double _radiusMax = 12;
   double _radiusMin = 5;
-  double _spacing = 48;
+  double _spacing = 24;
   double _acceleration = 0.5;
   double _headMoveOffset = 0.6;
 
@@ -167,20 +167,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 24),
-            child: ColoredBox(
-              color: Colors.yellow,
-              child: SpringIndicator(
-                controller: _controller,
-                itemCount: pages.length,
-                radiusMax: _radiusMax,
-                radiusMin: _radiusMin,
-                spacing: _spacing,
-                acceleration: _acceleration,
-                headMoveOffset: _headMoveOffset,
-                color: Colors.deepPurple,
-                colors: pages.map((p) => p.color).toList(),
-                inactiveColor: Colors.black26,
-              ),
+            child: SpringIndicator(
+              controller: _controller,
+              itemCount: pages.length,
+              radiusMax: _radiusMax,
+              radiusMin: _radiusMin,
+              spacing: _spacing,
+              acceleration: _acceleration,
+              headMoveOffset: _headMoveOffset,
+              color: Colors.deepPurple,
+              colors: pages.map((p) => p.color).toList(),
+              inactiveColor: Colors.black26,
             ),
           ),
         ],
