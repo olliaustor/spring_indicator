@@ -86,6 +86,18 @@ class SpringPainter extends CustomPainter {
   /// animations.
   double get radiusOffset => radiusMax - radiusMin;
 
+  Color _getColor(int index, double offset) {
+    if (activeColors == null) {
+      return activeColor;
+    }
+
+    final hsv1 = HSVColor.fromColor(activeColors![index]);
+    final hsv2 = HSVColor.fromColor(activeColors![index + 1]);
+
+    final hsv = HSVColor.lerp(hsv1, hsv2, offset)!;
+    return hsv.toColor();
+  }
+
   /// Paints the spring indicator animation on the canvas.
   ///
   /// This method:
@@ -134,13 +146,7 @@ class SpringPainter extends CustomPainter {
     final activePaint = Paint()
       ..isAntiAlias = true
       ..style = PaintingStyle.fill
-      ..color = activeColors == null
-          ? activeColor
-          : Color.lerp(
-              activeColors![current],
-              activeColors![current + 1],
-              offset,
-            )!;
+      ..color = _getColor(current, offset);
 
     // Draw the connecting path between head and foot, plus both endpoint
     // circles.
