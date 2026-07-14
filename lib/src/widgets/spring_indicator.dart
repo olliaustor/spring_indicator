@@ -58,9 +58,9 @@ class SpringIndicator extends StatefulWidget {
     this.radiusMin = 5,
     this.spacing = 24,
 
-    this.color = Colors.blue,
+    this.color,
     this.colors,
-    this.inactiveColor = const Color(0x33000000),
+    this.inactiveColor,
 
     this.acceleration = .5,
     this.headMoveOffset = .6,
@@ -113,8 +113,8 @@ class SpringIndicator extends StatefulWidget {
 
   /// The color used for the active dot when [colors] is not provided.
   ///
-  /// Defaults to [Colors.blue].
-  final Color color;
+  /// When unset defaults to `ThemeData.colorScheme.primary`.
+  final Color? color;
 
   /// Per-dot active colors, one entry per page.
   ///
@@ -124,8 +124,8 @@ class SpringIndicator extends StatefulWidget {
 
   /// The color of inactive dots.
   ///
-  /// Defaults to `Color(0x33000000)` (black at ~20 % opacity).
-  final Color inactiveColor;
+  /// When unset defaults to `ThemeData.disabledColor`.
+  final Color? inactiveColor;
 
   /// Controls how quickly the spring head accelerates toward the target dot.
   ///
@@ -226,9 +226,10 @@ class _SpringIndicatorState extends State<SpringIndicator> {
 
           headMoveOffset: widget.headMoveOffset,
 
-          activeColor: widget.color,
+          activeColor: widget.color ?? Theme.of(context).colorScheme.primary,
           activeColors: widget.colors,
-          inactiveColor: widget.inactiveColor,
+          inactiveColor:
+              widget.inactiveColor ?? Theme.of(context).disabledColor,
 
           axis: widget.axis,
         ),
