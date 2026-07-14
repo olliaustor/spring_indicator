@@ -22,7 +22,7 @@ timing are all configurable.
 
 ---
 
-![til](./demo.gif)
+![til](https://raw.githubusercontent.com/olliaustor/spring_indicator/refs/heads/develop/demo.gif)
 
 ---
 
