@@ -22,6 +22,10 @@ timing are all configurable.
 
 ---
 
+![til](./demo.gif)
+
+---
+
 ## Installation 💻
 
 **❗ In order to start using Spring Indicator you must have the [Flutter SDK][flutter_install_link] installed on your machine.**
