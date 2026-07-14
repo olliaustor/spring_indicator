@@ -66,8 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.labelMedium;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -78,109 +76,124 @@ class _MyHomePageState extends State<MyHomePage> {
           SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // radiusMax slider
-                Text(
-                  'Radius Max: ${_radiusMax.toStringAsFixed(1)}',
-                  style: textStyle,
-                ),
-                Slider(
-                  value: _radiusMax,
-                  min: 4,
-                  max: 16,
-                  divisions: 24,
-                  onChanged: (value) {
-                    setState(() => _radiusMax = value);
-                  },
-                ),
-
-                // radiusMin slider
-                Text(
-                  'Radius Min: ${_radiusMin.toStringAsFixed(1)}',
-                  style: textStyle,
-                ),
-                Slider(
-                  value: _radiusMin,
-                  min: 2,
-                  max: 8,
-                  divisions: 12,
-                  onChanged: (value) {
-                    setState(() => _radiusMin = value);
-                  },
-                ),
-
-                // spacing slider
-                Text(
-                  'Spacing: ${_spacing.toStringAsFixed(1)}',
-                  style: textStyle,
-                ),
-                Slider(
-                  value: _spacing,
-                  min: 8,
-                  max: 48,
-                  divisions: 20,
-                  onChanged: (value) {
-                    setState(() => _spacing = value);
-                  },
-                ),
-
-                // acceleration slider
-                Text(
-                  'Acceleration: ${_acceleration.toStringAsFixed(2)}',
-                  style: textStyle,
-                ),
-                Slider(
-                  value: _acceleration,
-                  min: 0,
-                  max: 1,
-                  divisions: 20,
-                  onChanged: (value) {
-                    setState(() => _acceleration = value);
-                  },
-                ),
-
-                // headMoveOffset slider
-                Text(
-                  'Head Move Offset: ${_headMoveOffset.toStringAsFixed(2)}',
-                  style: textStyle,
-                ),
-                Slider(
-                  value: _headMoveOffset,
-                  min: 0,
-                  max: 1,
-                  divisions: 20,
-                  onChanged: (value) {
-                    setState(() => _headMoveOffset = value);
-                  },
-                ),
-                Text(
-                  'Orientation',
-                  style: textStyle,
-                ),
-                DropdownButton<Axis>(
-                  value: _axis,
-                  items: [
-                    DropdownMenuItem(
-                      value: Axis.horizontal,
-                      child: Text(
-                        'Horizontal',
-                        style: textStyle,
+                Row(
+                  children: [
+                    Expanded(
+                      child: _SliderControl(
+                        label: 'Radius Max',
+                        valueLabel: _radiusMax.toStringAsFixed(1),
+                        min: 4,
+                        max: 16,
+                        divisions: 24,
+                        value: _radiusMax,
+                        onChanged: (value) {
+                          setState(() => _radiusMax = value);
+                        },
                       ),
                     ),
-                    DropdownMenuItem(
-                      value: Axis.vertical,
-                      child: Text(
-                        'Vertical',
-                        style: textStyle,
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _SliderControl(
+                        label: 'Radius Min',
+                        valueLabel: _radiusMin.toStringAsFixed(1),
+                        min: 2,
+                        max: 8,
+                        divisions: 12,
+                        value: _radiusMin,
+                        onChanged: (value) {
+                          setState(() => _radiusMin = value);
+                        },
                       ),
                     ),
                   ],
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _axis = value);
-                    }
-                  },
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _SliderControl(
+                        label: 'Spacing',
+                        valueLabel: _spacing.toStringAsFixed(1),
+                        min: 8,
+                        max: 48,
+                        divisions: 20,
+                        value: _spacing,
+                        onChanged: (value) {
+                          setState(() => _spacing = value);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _SliderControl(
+                        label: 'Acceleration',
+                        valueLabel: _acceleration.toStringAsFixed(2),
+                        min: 0,
+                        max: 1,
+                        divisions: 20,
+                        value: _acceleration,
+                        onChanged: (value) {
+                          setState(() => _acceleration = value);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _SliderControl(
+                        label: 'Head Move Offset',
+                        valueLabel: _headMoveOffset.toStringAsFixed(2),
+                        min: 0,
+                        max: 1,
+                        divisions: 20,
+                        value: _headMoveOffset,
+                        onChanged: (value) {
+                          setState(() => _headMoveOffset = value);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                        child: Column(
+                      children: [
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Orientation'),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: DropdownButton<Axis>(
+                            value: _axis,
+                            items: [
+                              DropdownMenuItem(
+                                value: Axis.horizontal,
+                                child: Text('Horizontal',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium),
+                              ),
+                              DropdownMenuItem(
+                                value: Axis.vertical,
+                                child: Text('Vertical',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium),
+                              ),
+                            ],
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() => _axis = value);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )),
+                  ],
                 ),
                 const SizedBox(height: 8),
               ],
@@ -213,6 +226,46 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _SliderControl extends StatelessWidget {
+  const _SliderControl({
+    required this.label,
+    required this.valueLabel,
+    required this.min,
+    required this.max,
+    required this.divisions,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final String valueLabel;
+  final double min;
+  final double max;
+  final int divisions;
+  final double value;
+  final ValueChanged<double> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$label: $valueLabel',
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+        ),
+      ],
     );
   }
 }
