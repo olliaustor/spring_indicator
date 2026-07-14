@@ -37,14 +37,17 @@ class _MyHomePageState extends State<MyHomePage> {
     _DemoPage(
       title: 'Page 1',
       icon: Icons.favorite,
+      color: Colors.red,
     ),
     _DemoPage(
       title: 'Page 2',
       icon: Icons.star,
+      color: Colors.green,
     ),
     _DemoPage(
       title: 'Page 3',
       icon: Icons.home,
+      color: Colors.blue,
     ),
   ];
 
@@ -74,13 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Padding(
             padding: const EdgeInsets.only(
+              top: 10,
               bottom: 40,
             ),
             child: SpringIndicator(
               controller: _controller,
               itemCount: pages.length,
               color: Colors.deepPurple,
-              colors: [Colors.red, Colors.green, Colors.blue],
+              colors: pages.map((p) => p.color).toList(),
               inactiveColor: Colors.black26,
             ),
           ),
@@ -91,34 +95,37 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class _DemoPage extends StatelessWidget {
-  const _DemoPage({
-    required this.title,
-    required this.icon,
-  });
+  const _DemoPage(
+      {required this.title, required this.icon, required this.color});
 
   final String title;
 
   final IconData icon;
 
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 100,
-            color: Colors.deepPurple,
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-        ],
+    return ColoredBox(
+      color: color,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 100,
+              color: Colors.deepPurple,
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
       ),
     );
   }
