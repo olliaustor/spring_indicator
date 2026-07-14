@@ -47,24 +47,23 @@ Widget _buildIndicator({
   double acceleration = 0.5,
   double headMoveOffset = 0.6,
   Axis axis = Axis.horizontal,
-}) =>
-    MaterialApp(
-      home: Scaffold(
-        body: SpringIndicator(
-          controller: controller,
-          itemCount: itemCount,
-          radiusMax: radiusMax,
-          radiusMin: radiusMin,
-          spacing: spacing,
-          color: color,
-          colors: colors,
-          inactiveColor: inactiveColor,
-          acceleration: acceleration,
-          headMoveOffset: headMoveOffset,
-          axis: axis,
-        ),
-      ),
-    );
+}) => MaterialApp(
+  home: Scaffold(
+    body: SpringIndicator(
+      controller: controller,
+      itemCount: itemCount,
+      radiusMax: radiusMax,
+      radiusMin: radiusMin,
+      spacing: spacing,
+      color: color,
+      colors: colors,
+      inactiveColor: inactiveColor,
+      acceleration: acceleration,
+      headMoveOffset: headMoveOffset,
+      axis: axis,
+    ),
+  ),
+);
 
 // ---------------------------------------------------------------------------
 // Tests
@@ -271,7 +270,8 @@ void main() {
         // assert
         final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox).first);
         const step = radiusMax * 2 + spacing;
-        expect(sizedBox.width, equals(step * itemCount));
+        const expectedWidth = step * (itemCount - 1) + radiusMax * 2;
+        expect(sizedBox.width, equals(expectedWidth));
         expect(sizedBox.height, equals(radiusMax * 2));
       });
 
@@ -292,7 +292,8 @@ void main() {
         final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox).first);
         const step = radiusMax * 2 + spacing;
         expect(sizedBox.width, equals(radiusMax * 2));
-        expect(sizedBox.height, equals(step * itemCount));
+        const expectedHeight = step * (itemCount - 1) + radiusMax * 2;
+        expect(sizedBox.height, equals(expectedHeight));
       });
     });
 

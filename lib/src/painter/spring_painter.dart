@@ -137,8 +137,8 @@ class SpringPainter extends CustomPainter {
       ..color = activeColors == null
           ? activeColor
           : Color.lerp(
-              activeColors == null ? activeColor : activeColors![current],
-              activeColors == null ? activeColor : activeColors![current + 1],
+              activeColors![current],
+              activeColors![current + 1],
               offset,
             )!;
 
