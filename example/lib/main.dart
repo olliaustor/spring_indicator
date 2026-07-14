@@ -33,6 +33,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _controller = PageController();
 
+  double _radiusMax = 12;
+  double _radiusMin = 5;
+  double _spacing = 24;
+  double _acceleration = 0.5;
+  double _headMoveOffset = 0.6;
+  Axis _axis = Axis.horizontal;
+
   final pages = const [
     _DemoPage(
       title: 'Page 1',
@@ -59,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.labelMedium;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -66,6 +75,117 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
+          SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // radiusMax slider
+                Text(
+                  'Radius Max: ${_radiusMax.toStringAsFixed(1)}',
+                  style: textStyle,
+                ),
+                Slider(
+                  value: _radiusMax,
+                  min: 4,
+                  max: 16,
+                  divisions: 24,
+                  onChanged: (value) {
+                    setState(() => _radiusMax = value);
+                  },
+                ),
+
+                // radiusMin slider
+                Text(
+                  'Radius Min: ${_radiusMin.toStringAsFixed(1)}',
+                  style: textStyle,
+                ),
+                Slider(
+                  value: _radiusMin,
+                  min: 2,
+                  max: 8,
+                  divisions: 12,
+                  onChanged: (value) {
+                    setState(() => _radiusMin = value);
+                  },
+                ),
+
+                // spacing slider
+                Text(
+                  'Spacing: ${_spacing.toStringAsFixed(1)}',
+                  style: textStyle,
+                ),
+                Slider(
+                  value: _spacing,
+                  min: 8,
+                  max: 48,
+                  divisions: 20,
+                  onChanged: (value) {
+                    setState(() => _spacing = value);
+                  },
+                ),
+
+                // acceleration slider
+                Text(
+                  'Acceleration: ${_acceleration.toStringAsFixed(2)}',
+                  style: textStyle,
+                ),
+                Slider(
+                  value: _acceleration,
+                  min: 0,
+                  max: 1,
+                  divisions: 20,
+                  onChanged: (value) {
+                    setState(() => _acceleration = value);
+                  },
+                ),
+
+                // headMoveOffset slider
+                Text(
+                  'Head Move Offset: ${_headMoveOffset.toStringAsFixed(2)}',
+                  style: textStyle,
+                ),
+                Slider(
+                  value: _headMoveOffset,
+                  min: 0,
+                  max: 1,
+                  divisions: 20,
+                  onChanged: (value) {
+                    setState(() => _headMoveOffset = value);
+                  },
+                ),
+                Text(
+                  'Orientation',
+                  style: textStyle,
+                ),
+                DropdownButton<Axis>(
+                  value: _axis,
+                  items: [
+                    DropdownMenuItem(
+                      value: Axis.horizontal,
+                      child: Text(
+                        'Horizontal',
+                        style: textStyle,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: Axis.vertical,
+                      child: Text(
+                        'Vertical',
+                        style: textStyle,
+                      ),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      setState(() => _axis = value);
+                    }
+                  },
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
           Expanded(
             child: PageView.builder(
               controller: _controller,
@@ -76,13 +196,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              top: 10,
-              bottom: 40,
-            ),
+            padding: const EdgeInsets.only(top: 10, bottom: 24),
             child: SpringIndicator(
               controller: _controller,
               itemCount: pages.length,
+              radiusMax: _radiusMax,
+              radiusMin: _radiusMin,
+              spacing: _spacing,
+              acceleration: _acceleration,
+              headMoveOffset: _headMoveOffset,
+              axis: _axis,
               color: Colors.deepPurple,
               colors: pages.map((p) => p.color).toList(),
               inactiveColor: Colors.black26,
