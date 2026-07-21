@@ -1,3 +1,7 @@
+# 0.2.2
+
+- Improved package description
+
 # 0.2.1
 
 - Changed demo.gif path to GitHub path
