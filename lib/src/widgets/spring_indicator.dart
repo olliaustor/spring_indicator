@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:spring_indicator/src/painter/spring_painter.dart';
 
 /// A page indicator widget that animates with a spring-like stretching effect
