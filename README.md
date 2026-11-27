@@ -147,9 +147,9 @@ SpringIndicator(
 | `radiusMax` | `double` | `8` | Radius of the active dot in logical pixels. |
 | `radiusMin` | `double` | `5` | Radius of an inactive dot in logical pixels. |
 | `spacing` | `double` | `24` | Gap between adjacent dots in logical pixels. |
-| `color` | `Color` | `Colors.blue` | Active dot color (used when `colors` is null). |
+| `color` | `Color` | `Color(0xFF2196F3)` | Active dot color (used when `colors` is null). |
 | `colors` | `List<Color>?` | `null` | Per-page active colors. Length must equal `itemCount`. |
-| `inactiveColor` | `Color` | `Color(0x33000000)` | Color of inactive dots. |
+| `inactiveColor` | `Color` | `Color(0xFFBDBDBD)` | Color of inactive dots. |
 | `acceleration` | `double` | `0.5` | How quickly the spring head accelerates. Clamped to `[0.0, 1.0]`. |
 | `headMoveOffset` | `double` | `0.6` | Scroll progress fraction at which the spring head begins moving. Clamped to `[0.0, 1.0]`. |
 | `axis` | `Axis` | `Axis.horizontal` | Layout direction of the dots. |

@@ -1,4 +1,4 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spring_indicator/src/painter/spring_painter.dart';
 
 /// A page indicator widget that animates with a spring-like stretching effect
@@ -113,7 +113,9 @@ class SpringIndicator extends StatefulWidget {
 
   /// The color used for the active dot when [colors] is not provided.
   ///
-  /// When unset defaults to `ThemeData.colorScheme.primary`.
+  /// When unset defaults to blue (`0xFF2196F3`).
+  /// In case you want to use the regular apps theme set this to
+  /// `ThemeData.colorScheme.primary`.
   final Color? color;
 
   /// Per-dot active colors, one entry per page.
@@ -124,7 +126,9 @@ class SpringIndicator extends StatefulWidget {
 
   /// The color of inactive dots.
   ///
-  /// When unset defaults to `ThemeData.disabledColor`.
+  /// When unset defaults to grey (`0xFFBDBDBD`).
+  /// In case you want to use the regular apps theme set this to
+  /// `ThemeData.disabledColor`.
   final Color? inactiveColor;
 
   /// Controls how quickly the spring head accelerates toward the target dot.
@@ -153,6 +157,9 @@ class SpringIndicator extends StatefulWidget {
   @override
   State<SpringIndicator> createState() => _SpringIndicatorState();
 }
+
+const _defaultActiveColor = Color(0xFF2196F3);
+const _defaultInactiveColor = Color(0xFFBDBDBD);
 
 class _SpringIndicatorState extends State<SpringIndicator> {
   double _page = 0;
@@ -226,10 +233,9 @@ class _SpringIndicatorState extends State<SpringIndicator> {
 
           headMoveOffset: widget.headMoveOffset,
 
-          activeColor: widget.color ?? Theme.of(context).colorScheme.primary,
+          activeColor: widget.color ?? _defaultActiveColor,
           activeColors: widget.colors,
-          inactiveColor:
-              widget.inactiveColor ?? Theme.of(context).disabledColor,
+          inactiveColor: widget.inactiveColor ?? _defaultInactiveColor,
 
           axis: widget.axis,
         ),

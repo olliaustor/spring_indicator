@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spring_indicator/src/models/spring_point.dart';
 
 /// A custom painter that renders a spring-like indicator animation.

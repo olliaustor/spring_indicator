@@ -1,5 +1,5 @@
 name: spring_indicator
-version: 0.2.3
+version: 0.3.0
 description: A customizable Flutter widget providing spring physics-based visual indicators for loading states and progress tracking.
 
 homepage: https://github.com/olliaustor/spring_indicator
@@ -22,9 +22,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  material_ui: ^1.11.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  material_ui: ^1.11.1
   mocktail: ^1.0.5
   very_good_analysis: ^11.0.0
