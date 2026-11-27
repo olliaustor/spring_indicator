@@ -6,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const new({super.key, required this.title});
 
   final String title;
 
@@ -41,21 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Axis _axis = Axis.horizontal;
 
   final pages = const [
-    _DemoPage(
-      title: 'Page 1',
-      icon: Icons.favorite,
-      color: Colors.red,
-    ),
-    _DemoPage(
-      title: 'Page 2',
-      icon: Icons.star,
-      color: Colors.green,
-    ),
-    _DemoPage(
-      title: 'Page 3',
-      icon: Icons.home,
-      color: Colors.blue,
-    ),
+    _DemoPage(title: 'Page 1', icon: Icons.favorite, color: Colors.red),
+    _DemoPage(title: 'Page 2', icon: Icons.star, color: Colors.green),
+    _DemoPage(title: 'Page 3', icon: Icons.home, color: Colors.blue),
   ];
 
   @override
@@ -158,41 +146,46 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                        child: Column(
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Orientation'),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: DropdownButton<Axis>(
-                            value: _axis,
-                            items: [
-                              DropdownMenuItem(
-                                value: Axis.horizontal,
-                                child: Text('Horizontal',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium),
-                              ),
-                              DropdownMenuItem(
-                                value: Axis.vertical,
-                                child: Text('Vertical',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              if (value != null) {
-                                setState(() => _axis = value);
-                              }
-                            },
+                      child: Column(
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Orientation'),
                           ),
-                        ),
-                      ],
-                    )),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: DropdownButton<Axis>(
+                              value: _axis,
+                              items: [
+                                DropdownMenuItem(
+                                  value: Axis.horizontal,
+                                  child: Text(
+                                    'Horizontal',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium,
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: Axis.vertical,
+                                  child: Text(
+                                    'Vertical',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium,
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                if (value != null) {
+                                  setState(() => _axis = value);
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -229,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class _SliderControl extends StatelessWidget {
-  const _SliderControl({
+  const new({
     required this.label,
     required this.valueLabel,
     required this.min,
@@ -269,8 +262,7 @@ class _SliderControl extends StatelessWidget {
 }
 
 class _DemoPage extends StatelessWidget {
-  const _DemoPage(
-      {required this.title, required this.icon, required this.color});
+  const new({required this.title, required this.icon, required this.color});
 
   final String title;
 
@@ -286,18 +278,9 @@ class _DemoPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 100,
-              color: Colors.deepPurple,
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Icon(icon, size: 100, color: Colors.deepPurple),
+            const SizedBox(height: 24),
+            Text(title, style: Theme.of(context).textTheme.headlineMedium),
           ],
         ),
       ),

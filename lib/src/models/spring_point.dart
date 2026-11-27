@@ -4,10 +4,7 @@ import 'dart:ui';
 /// center position and radius.
 class SpringPoint {
   /// Creates a [SpringPoint] with the given [center] and [radius].
-  const SpringPoint({
-    required this.center,
-    required this.radius,
-  });
+  const new({required this.center, required this.radius});
 
   /// The center position of this point in 2D space.
   final Offset center;

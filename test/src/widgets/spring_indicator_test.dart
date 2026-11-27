@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:spring_indicator/spring_indicator.dart';
 
 // ---------------------------------------------------------------------------
@@ -9,11 +9,7 @@ import 'package:spring_indicator/spring_indicator.dart';
 /// A [PageController] subclass that allows tests to control [page] and
 /// [hasClients] without attaching to a real [PageView].
 class _FakePageController extends PageController {
-  _FakePageController({
-    super.initialPage,
-    this.fakeHasClients = false,
-    this.fakePage,
-  });
+  new({super.initialPage, this.fakeHasClients = false, this.fakePage});
 
   final bool fakeHasClients;
   double? fakePage;
@@ -299,56 +295,53 @@ void main() {
 
     // -----------------------------------------------------------------------
     group('initState', () {
-      testWidgets(
-        'uses 0 as initial page when controller has no clients',
-        (tester) async {
-          // arrange
-          final controller = _FakePageController();
-          addTearDown(controller.dispose);
+      testWidgets('uses 0 as initial page when controller has no clients', (
+        tester,
+      ) async {
+        // arrange
+        final controller = _FakePageController();
+        addTearDown(controller.dispose);
 
-          // act
-          await tester.pumpWidget(_buildIndicator(controller: controller));
+        // act
+        await tester.pumpWidget(_buildIndicator(controller: controller));
 
-          // assert
-          expect(find.byType(SpringIndicator), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byType(SpringIndicator), findsOneWidget);
+      });
 
-      testWidgets(
-        'reads page from controller when it has clients',
-        (tester) async {
-          // arrange
-          final controller = _FakePageController(
-            fakeHasClients: true,
-            fakePage: 2,
-          );
-          addTearDown(controller.dispose);
+      testWidgets('reads page from controller when it has clients', (
+        tester,
+      ) async {
+        // arrange
+        final controller = _FakePageController(
+          fakeHasClients: true,
+          fakePage: 2,
+        );
+        addTearDown(controller.dispose);
 
-          // act
-          await tester.pumpWidget(_buildIndicator(controller: controller));
+        // act
+        await tester.pumpWidget(_buildIndicator(controller: controller));
 
-          // assert
-          expect(find.byType(SpringIndicator), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byType(SpringIndicator), findsOneWidget);
+      });
 
-      testWidgets(
-        'falls back to initialPage when controller.page is null',
-        (tester) async {
-          // arrange
-          final controller = _FakePageController(
-            initialPage: 1,
-            fakeHasClients: true,
-          );
-          addTearDown(controller.dispose);
+      testWidgets('falls back to initialPage when controller.page is null', (
+        tester,
+      ) async {
+        // arrange
+        final controller = _FakePageController(
+          initialPage: 1,
+          fakeHasClients: true,
+        );
+        addTearDown(controller.dispose);
 
-          // act
-          await tester.pumpWidget(_buildIndicator(controller: controller));
+        // act
+        await tester.pumpWidget(_buildIndicator(controller: controller));
 
-          // assert
-          expect(find.byType(SpringIndicator), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byType(SpringIndicator), findsOneWidget);
+      });
     });
 
     // -----------------------------------------------------------------------
@@ -386,45 +379,43 @@ void main() {
 
     // -----------------------------------------------------------------------
     group('didUpdateWidget', () {
-      testWidgets(
-        'swaps controller listener when controller changes',
-        (tester) async {
-          // arrange
-          final controller1 = _FakePageController();
-          final controller2 = _FakePageController();
-          addTearDown(controller1.dispose);
-          addTearDown(controller2.dispose);
-          await tester.pumpWidget(_buildIndicator(controller: controller1));
+      testWidgets('swaps controller listener when controller changes', (
+        tester,
+      ) async {
+        // arrange
+        final controller1 = _FakePageController();
+        final controller2 = _FakePageController();
+        addTearDown(controller1.dispose);
+        addTearDown(controller2.dispose);
+        await tester.pumpWidget(_buildIndicator(controller: controller1));
 
-          // act – rebuild with a different controller
-          await tester.pumpWidget(_buildIndicator(controller: controller2));
+        // act – rebuild with a different controller
+        await tester.pumpWidget(_buildIndicator(controller: controller2));
 
-          // assert – new controller drives updates; old one no longer does
-          controller2.setPageValue(1);
-          await tester.pump();
-          expect(find.byType(SpringIndicator), findsOneWidget);
-        },
-      );
+        // assert – new controller drives updates; old one no longer does
+        controller2.setPageValue(1);
+        await tester.pump();
+        expect(find.byType(SpringIndicator), findsOneWidget);
+      });
 
-      testWidgets(
-        'does not swap listener when controller is unchanged',
-        (tester) async {
-          // arrange
-          final controller = _FakePageController();
-          addTearDown(controller.dispose);
-          await tester.pumpWidget(_buildIndicator(controller: controller));
+      testWidgets('does not swap listener when controller is unchanged', (
+        tester,
+      ) async {
+        // arrange
+        final controller = _FakePageController();
+        addTearDown(controller.dispose);
+        await tester.pumpWidget(_buildIndicator(controller: controller));
 
-          // act – rebuild with same controller but different color
-          await tester.pumpWidget(
-            _buildIndicator(controller: controller, color: Colors.red),
-          );
+        // act – rebuild with same controller but different color
+        await tester.pumpWidget(
+          _buildIndicator(controller: controller, color: Colors.red),
+        );
 
-          // assert – controller still drives updates
-          controller.setPageValue(1);
-          await tester.pump();
-          expect(find.byType(SpringIndicator), findsOneWidget);
-        },
-      );
+        // assert – controller still drives updates
+        controller.setPageValue(1);
+        await tester.pump();
+        expect(find.byType(SpringIndicator), findsOneWidget);
+      });
     });
 
     // -----------------------------------------------------------------------

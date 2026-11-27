@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:spring_indicator/src/painter/spring_painter.dart';
 
 // ---------------------------------------------------------------------------
@@ -18,30 +18,29 @@ SpringPainter _makePainter({
   List<Color>? activeColors,
   Color inactiveColor = const Color(0x33000000),
   Axis axis = Axis.horizontal,
-}) =>
-    SpringPainter(
-      page: page,
-      itemCount: itemCount,
-      radiusMax: radiusMax,
-      radiusMin: radiusMin,
-      spacing: spacing,
-      acceleration: acceleration,
-      headMoveOffset: headMoveOffset,
-      activeColor: activeColor,
-      activeColors: activeColors,
-      inactiveColor: inactiveColor,
-      axis: axis,
-    );
+}) => SpringPainter(
+  page: page,
+  itemCount: itemCount,
+  radiusMax: radiusMax,
+  radiusMin: radiusMin,
+  spacing: spacing,
+  acceleration: acceleration,
+  headMoveOffset: headMoveOffset,
+  activeColor: activeColor,
+  activeColors: activeColors,
+  inactiveColor: inactiveColor,
+  axis: axis,
+);
 
 Widget _buildWithPainter(SpringPainter painter) => MaterialApp(
-      home: Scaffold(
-        body: SizedBox(
-          width: 300,
-          height: 300,
-          child: CustomPaint(key: const Key('test_painter'), painter: painter),
-        ),
-      ),
-    );
+  home: Scaffold(
+    body: SizedBox(
+      width: 300,
+      height: 300,
+      child: CustomPaint(key: const Key('test_painter'), painter: painter),
+    ),
+  ),
+);
 
 // ---------------------------------------------------------------------------
 // Tests
@@ -215,36 +214,34 @@ void main() {
     group('paint', () {
       // Last-page branch --------------------------------------------
 
-      testWidgets(
-        'paints last page without activeColors without error',
-        (tester) async {
-          // arrange
-          final painter = _makePainter(page: 2);
+      testWidgets('paints last page without activeColors without error', (
+        tester,
+      ) async {
+        // arrange
+        final painter = _makePainter(page: 2);
 
-          // act
-          await tester.pumpWidget(_buildWithPainter(painter));
+        // act
+        await tester.pumpWidget(_buildWithPainter(painter));
 
-          // assert
-          expect(find.byKey(const Key('test_painter')), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byKey(const Key('test_painter')), findsOneWidget);
+      });
 
-      testWidgets(
-        'paints last page with activeColors without error',
-        (tester) async {
-          // arrange
-          final painter = _makePainter(
-            page: 2,
-            activeColors: [Colors.red, Colors.green, Colors.blue],
-          );
+      testWidgets('paints last page with activeColors without error', (
+        tester,
+      ) async {
+        // arrange
+        final painter = _makePainter(
+          page: 2,
+          activeColors: [Colors.red, Colors.green, Colors.blue],
+        );
 
-          // act
-          await tester.pumpWidget(_buildWithPainter(painter));
+        // act
+        await tester.pumpWidget(_buildWithPainter(painter));
 
-          // assert
-          expect(find.byKey(const Key('test_painter')), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byKey(const Key('test_painter')), findsOneWidget);
+      });
 
       // Mid-page branches: offset = 0.3
       // head: offset(0.3) < headMoveOffset(0.6)  → _atanInterpolation called
@@ -282,54 +279,44 @@ void main() {
         },
       );
 
-      testWidgets(
-        'paints mid-page with activeColors applying color lerp',
-        (tester) async {
-          // arrange
-          final painter = _makePainter(
-            page: 0.5,
-            activeColors: [Colors.red, Colors.green, Colors.blue],
-          );
+      testWidgets('paints mid-page with activeColors applying color lerp', (
+        tester,
+      ) async {
+        // arrange
+        final painter = _makePainter(
+          page: 0.5,
+          activeColors: [Colors.red, Colors.green, Colors.blue],
+        );
 
-          // act
-          await tester.pumpWidget(_buildWithPainter(painter));
+        // act
+        await tester.pumpWidget(_buildWithPainter(painter));
 
-          // assert
-          expect(find.byKey(const Key('test_painter')), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byKey(const Key('test_painter')), findsOneWidget);
+      });
 
-      testWidgets(
-        'paints with vertical axis without error',
-        (tester) async {
-          // arrange
-          final painter = _makePainter(
-            page: 0.5,
-            axis: Axis.vertical,
-          );
+      testWidgets('paints with vertical axis without error', (tester) async {
+        // arrange
+        final painter = _makePainter(page: 0.5, axis: Axis.vertical);
 
-          // act
-          await tester.pumpWidget(_buildWithPainter(painter));
+        // act
+        await tester.pumpWidget(_buildWithPainter(painter));
 
-          // assert
-          expect(find.byKey(const Key('test_painter')), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byKey(const Key('test_painter')), findsOneWidget);
+      });
 
-      testWidgets(
-        'paints single-item indicator on page 0',
-        (tester) async {
-          // arrange
-          // itemCount=1, page=0: current=0, itemCount-1=0 → last page branch
-          final painter = _makePainter(itemCount: 1);
+      testWidgets('paints single-item indicator on page 0', (tester) async {
+        // arrange
+        // itemCount=1, page=0: current=0, itemCount-1=0 → last page branch
+        final painter = _makePainter(itemCount: 1);
 
-          // act
-          await tester.pumpWidget(_buildWithPainter(painter));
+        // act
+        await tester.pumpWidget(_buildWithPainter(painter));
 
-          // assert
-          expect(find.byKey(const Key('test_painter')), findsOneWidget);
-        },
-      );
+        // assert
+        expect(find.byKey(const Key('test_painter')), findsOneWidget);
+      });
     });
   });
 }

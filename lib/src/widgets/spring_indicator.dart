@@ -49,7 +49,7 @@ class SpringIndicator extends StatefulWidget {
   /// [spacing] must be non-negative.
   /// [acceleration] and [headMoveOffset] must each be between 0.0 and 1.0.
   /// If [colors] is provided, its length must equal [itemCount].
-  const SpringIndicator({
+  const new({
     required this.controller,
     required this.itemCount,
     super.key,

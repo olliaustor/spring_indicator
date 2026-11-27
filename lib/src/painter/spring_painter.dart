@@ -14,8 +14,9 @@ import 'package:spring_indicator/src/models/spring_point.dart';
 /// either using a single color or interpolating between multiple colors
 /// for each indicator position.
 class SpringPainter extends CustomPainter {
-  /// Creates a SpringPainter with the required animation and styling parameters.
-  SpringPainter({
+  /// Creates a SpringPainter with the required animation and styling
+  /// parameters.
+  new({
     required this.page,
     required this.itemCount,
     required this.radiusMax,
@@ -126,11 +127,7 @@ class SpringPainter extends CustomPainter {
         ..isAntiAlias = true
         ..style = PaintingStyle.fill
         ..color = activeColors == null ? activeColor : activeColors!.last;
-      canvas.drawCircle(
-        _position(current),
-        radiusMax,
-        activePaint,
-      );
+      canvas.drawCircle(_position(current), radiusMax, activePaint);
       return;
     }
 
@@ -154,16 +151,8 @@ class SpringPainter extends CustomPainter {
 
     canvas
       ..drawPath(path, activePaint)
-      ..drawCircle(
-        head.center,
-        head.radius,
-        activePaint,
-      )
-      ..drawCircle(
-        foot.center,
-        foot.radius,
-        activePaint,
-      );
+      ..drawCircle(head.center, head.radius, activePaint)
+      ..drawCircle(foot.center, foot.radius, activePaint);
   }
 
   /// Builds the head (leading) point of the spring animation.
@@ -180,10 +169,7 @@ class SpringPainter extends CustomPainter {
   ///
   /// Returns a [SpringPoint] with interpolated position and radius.
 
-  SpringPoint _buildHead(
-    int page,
-    double offset,
-  ) {
+  SpringPoint _buildHead(int page, double offset) {
     final start = _position(page);
     final end = _position(page + 1);
 
@@ -193,11 +179,7 @@ class SpringPainter extends CustomPainter {
       t = _atanInterpolation(offset / headMoveOffset);
     }
 
-    final center = Offset.lerp(
-      start,
-      end,
-      t,
-    )!;
+    final center = Offset.lerp(start, end, t)!;
 
     double radius;
 
@@ -207,10 +189,7 @@ class SpringPainter extends CustomPainter {
       radius = radiusMin + ((offset - .5) / .5) * radiusOffset;
     }
 
-    return SpringPoint(
-      center: center,
-      radius: radius,
-    );
+    return SpringPoint(center: center, radius: radius);
   }
 
   /// Builds the foot (trailing) point of the spring animation.
@@ -225,26 +204,17 @@ class SpringPainter extends CustomPainter {
   ///   - [offset]: The fractional progress (0.0 to 1.0) between pages
   ///
   /// Returns a [SpringPoint] with interpolated position and radius.
-  SpringPoint _buildFoot(
-    int page,
-    double offset,
-  ) {
+  SpringPoint _buildFoot(int page, double offset) {
     final start = _position(page);
     final end = _position(page + 1);
 
     double t = 0;
 
     if (offset > footMoveOffset) {
-      t = _atanInterpolation(
-        (offset - footMoveOffset) / (1 - footMoveOffset),
-      );
+      t = _atanInterpolation((offset - footMoveOffset) / (1 - footMoveOffset));
     }
 
-    final center = Offset.lerp(
-      start,
-      end,
-      t,
-    )!;
+    final center = Offset.lerp(start, end, t)!;
 
     double radius;
 
@@ -254,10 +224,7 @@ class SpringPainter extends CustomPainter {
       radius = radiusMin;
     }
 
-    return SpringPoint(
-      center: center,
-      radius: radius,
-    );
+    return SpringPoint(center: center, radius: radius);
   }
 
   /// Applies an arctan-based easing curve to the progress value.
@@ -291,16 +258,10 @@ class SpringPainter extends CustomPainter {
     final step = radiusMax * 2 + spacing;
 
     if (axis == Axis.horizontal) {
-      return Offset(
-        radiusMax + index * step,
-        radiusMax,
-      );
+      return Offset(radiusMax + index * step, radiusMax);
     }
 
-    return Offset(
-      radiusMax,
-      radiusMax + index * step,
-    );
+    return Offset(radiusMax, radiusMax + index * step);
   }
 
   /// Creates a path that connects the head and foot circles with a smooth
@@ -316,10 +277,7 @@ class SpringPainter extends CustomPainter {
   ///   - [foot]: The trailing circle point
   ///
   /// Returns a closed [Path] object representing the connecting shape
-  Path _makePath(
-    SpringPoint head,
-    SpringPoint foot,
-  ) {
+  Path _makePath(SpringPoint head, SpringPoint foot) {
     final dx = foot.center.dx - head.center.dx;
     final dy = foot.center.dy - head.center.dy;
 
@@ -341,27 +299,13 @@ class SpringPainter extends CustomPainter {
     final p3 = foot.center - footOffset;
     final p4 = foot.center + footOffset;
 
-    final anchor = Offset.lerp(
-      head.center,
-      foot.center,
-      .5,
-    )!;
+    final anchor = Offset.lerp(head.center, foot.center, .5)!;
 
     return Path()
       ..moveTo(p1.dx, p1.dy)
-      ..quadraticBezierTo(
-        anchor.dx,
-        anchor.dy,
-        p3.dx,
-        p3.dy,
-      )
+      ..quadraticBezierTo(anchor.dx, anchor.dy, p3.dx, p3.dy)
       ..lineTo(p4.dx, p4.dy)
-      ..quadraticBezierTo(
-        anchor.dx,
-        anchor.dy,
-        p2.dx,
-        p2.dy,
-      )
+      ..quadraticBezierTo(anchor.dx, anchor.dy, p2.dx, p2.dy)
       ..close();
   }
 
